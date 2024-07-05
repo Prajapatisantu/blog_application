@@ -1,0 +1,49 @@
+<% if notice %>
+  <div class="alert alert-success" role="alert" id="notice">
+    <%= notice %>
+  </div>
+<% end %>
+
+<div class="container">
+  <h3><%= @post.title %></h3>
+  <p><b>Content:</b> <%= @post.content %></p>
+  <p><b>Author:</b> <%= post_author(@post.author) %></p>
+  <p><b>published on:</b>  <%= @post.published_date&.strftime("%B %d, %y") %></p>
+</div>
+
+<% if @post.image.attached? %>
+  <h2>Images</h2>
+  <%= image_tag @post.image, class: "img-fluid" %>
+<% end %>
+
+<% if @post.video.attached? %>
+  <h2>Videos</h2>
+  <%= video_tag url_for(@post.video), controls: true, class: "video-fluid" %>
+<% end %>
+
+
+<div class="container">
+  <h2>Comments</h2>
+  <%= render partial:"comments/comment", collection: @post.comments %>
+
+  <% if user_signed_in? %>
+    <h3>Add a comment:</h3>
+    <%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
+      <div class="mb-3">
+        <div class="form-group">
+          <%= form.label :content, class: "form-label" %>
+          <%= form.text_area :content, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= form.submit "Add Comment", class: "btn btn-primary" %>
+      </div>
+      <div>
+        <%= link_to "Back to posts", posts_path %>
+      </div>
+    <% end %>
+  <% else %>
+    <p><%= link_to "Log in", new_user_session_path %> </p>
+  <% end %>
+</div>

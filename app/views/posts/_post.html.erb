@@ -1,0 +1,18 @@
+<div class="col-md-3 me-4 mb-4 shadow p-3 mb-5 bg-body rounded">
+  <%= link_to post_path(post) do %>
+    <div class="card">
+      <% if post.image.attached? %>
+        <%= image_tag post.image, class: "card-img-top", alt: "post_image"%>
+      <% else %>
+        <%= image_tag "blog_default.png", class: "card-img-top", alt: "default_image"%>
+      <% end %>
+      <div class="card-body">
+        <h5 class="card-title"><%= link_to post.title, post %></h5>
+        <p class="card-text"><strong>Author:</strong> <%= post_author(post.author) %></p>
+        <p class="card-text"><strong>Published on:</strong> <%= post.published_date&.strftime("%B %d, %y") %></p>
+        <p class="card-text"><%= truncate(post.content, length: 100) %></p>
+        <%= link_to 'Read more', post, class: 'btn btn-primary' %>
+      </div>
+    </div>
+ <% end %>
+</div>

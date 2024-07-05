@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+    <div class="text-end m-4">
+      <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+<div class="container-fluid ms-5">
+  <% if @posts.empty? %>
+    <div class="text-center mt-5">
+      <h3>Feed doesn't have any posts yet</h3>
+    </div>
+  <% else %>
+    <div class="row">
+      <%= render partial: 'post', collection: @posts %>
+    </div>
+  <% end %>
+</div>
+
+

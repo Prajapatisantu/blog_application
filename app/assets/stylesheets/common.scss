@@ -1,0 +1,23 @@
+.btn{
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color);
+}
+
+.btn-primary:focus {
+  color: #fff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(199, 162, 170, 0.11);
+}
+
+.btn-primary {
+  border-color: var(--primary-color) !important;
+}
+
+
+.card-title a{
+  color: #000;
+  text-decoration: none;
+}
+.card-title a:hover{
+  color: var(--primary-color);
+}

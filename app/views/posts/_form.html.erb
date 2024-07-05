@@ -1,0 +1,52 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <div class="form-group">
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-group">
+      <%= form.label :content, class: "form-label" %>
+      <%= form.text_area :content, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-group">
+      <%= form.label :status, class: "form-label" %>
+      <%= form.select :status, options_for_select([['Draft', 'draft'], ['Published', 'published']], post.status), {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-group">
+      <%= form.label :image, class: "form-label" %>
+      <%= form.file_field :image, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-group">
+      <%= form.label :video, class: "form-label" %>
+      <%= form.file_field :video, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
