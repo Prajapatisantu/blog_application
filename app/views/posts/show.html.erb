@@ -4,7 +4,9 @@
       <h3 class="card-title"><%= @post.title %></h3>
       <p class="card-text"><b>Content:</b> <%= @post.content %></p>
       <p class="card-text"><b>Author:</b> <%= @post.user.username %></p>
-      <p class="card-text"><b>Published on:</b> <%= @post.published_date&.strftime("%B %d, %Y") %></p>
+      <% if @post.published_date %>
+       <p class="card-text"><b>Published on:</b> <%= @post.published_date&.strftime("%B %d, %Y") %></p>
+       <% end %>
     </div>
     <% if @post.image.attached? %>
       <img src="<%= url_for(@post.image) %>" class="card-img-bottom img-fluid" alt="Post image">
