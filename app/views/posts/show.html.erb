@@ -1,41 +1,35 @@
-<% if notice %>
-  <div class="alert alert-success" role="alert" id="notice">
-    <%= notice %>
+<div class="container mt-4">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3 class="card-title"><%= @post.title %></h3>
+      <p class="card-text"><b>Content:</b> <%= @post.content %></p>
+      <p class="card-text"><b>Author:</b> <%= @post.user.username %></p>
+      <p class="card-text"><b>Published on:</b> <%= @post.published_date&.strftime("%B %d, %Y") %></p>
+    </div>
+    <% if @post.image.attached? %>
+      <img src="<%= url_for(@post.image) %>" class="card-img-bottom img-fluid" alt="Post image">
+    <% end %>
+    <% if @post.video.attached? %>
+      <div class="card-footer">
+        <h2>Videos</h2>
+        <%= video_tag url_for(@post.video), controls: true, class: "video-fluid w-100" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
 
-<div class="container">
-  <h3><%= @post.title %></h3>
-  <p><b>Content:</b> <%= @post.content %></p>
-  <p><b>Author:</b> <%= post_author(@post.author) %></p>
-  <p><b>published on:</b>  <%= @post.published_date&.strftime("%B %d, %y") %></p>
-</div>
-
-<% if @post.image.attached? %>
-  <h2>Images</h2>
-  <%= image_tag @post.image, class: "img-fluid" %>
-<% end %>
-
-<% if @post.video.attached? %>
-  <h2>Videos</h2>
-  <%= video_tag url_for(@post.video), controls: true, class: "video-fluid" %>
-<% end %>
-
-
-<div class="container">
-  <h2>Comments</h2>
-  <%= render partial:"comments/comment", collection: @post.comments %>
+  <h4>Comments</h4>
+  <div class="list-group mb-4">
+    <%= render partial: "comments/comment", collection: @post.comments %>
+  </div>
 
   <% if user_signed_in? %>
-    <h3>Add a comment:</h3>
-    <%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
+    <h4>Add a comment:</h4>
+    <%= form_with(model: [@post, @post.comments.build], local: true, class: "mb-4") do |form| %>
       <div class="mb-3">
         <div class="form-group">
-          <%= form.label :content, class: "form-label" %>
-          <%= form.text_area :content, class: "form-control" %>
+          <%= form.text_area :content, class: "form-control", placeholder: "Write comment" %>
         </div>
       </div>
-
       <div class="form-group">
         <%= form.submit "Add Comment", class: "btn btn-primary" %>
       </div>
@@ -44,6 +38,6 @@
       </div>
     <% end %>
   <% else %>
-    <p><%= link_to "Log in", new_user_session_path %> </p>
+    <p><%= link_to "Log in to add a comment", new_user_session_path, class: "btn btn-primary" %></p>
   <% end %>
 </div>

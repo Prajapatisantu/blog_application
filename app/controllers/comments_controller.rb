@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      redirect_to @commentable, notice: "Comment was successfully created."
+      redirect_to @commentable, notice: "Comment posted successfully."
     else
       redirect_to @commentable, alert: "Error creating comment."
     end
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
   private
 
-  # This will the resource for comment build
+  # This will the dynamic resource for comment build
   def find_commentable
     params.each do |name, value|
       if name =~ /(.+)_id$/

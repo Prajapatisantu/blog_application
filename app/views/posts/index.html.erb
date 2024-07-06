@@ -1,8 +1,9 @@
 <% if user_signed_in? %>
-    <div class="text-end m-4">
-      <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+  <div class="text-end m-4">
+    <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+    <%= link_to 'My library', user_library_posts_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
 <div class="container-fluid ms-5">
   <% if @posts.empty? %>
     <div class="text-center mt-5">

@@ -1,7 +1,8 @@
 class Post < ApplicationRecord
-  enum status: { draft: 0, published: 1 }
+  include Statusable
 
   has_many :comments, as: :commentable, dependent: :destroy
+  belongs_to :user
   has_one_attached :image
   has_one_attached :video
 
@@ -9,9 +10,8 @@ class Post < ApplicationRecord
 
   before_create :set_creation_date
   before_save :set_published_date
-  
-  scope :published, -> { where(status: 'published') }
-  scope :draft, -> { where(status: 'draft') }
+
+  validate :video_content_type
 
   private
 
@@ -22,6 +22,12 @@ class Post < ApplicationRecord
   def set_published_date
     if status_changed? && status == "published"
       self.published_date = Time.current
+    end
+  end
+
+  def video_content_type
+    if video.attached? && !video.content_type.in?(%w(video/mp4))
+      errors.add(:video, 'must be a valid MP4 file')
     end
   end
 end

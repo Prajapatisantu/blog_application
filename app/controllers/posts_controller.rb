@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[ index show ]
 
   def index
-    @posts = user_signed_in? ? Post.all : Post.published
+    @posts = Post.published
   end
 
   def show
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
     @post.author = current_user.email if user_signed_in?
 
     if @post.save
@@ -36,8 +36,15 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    redirect_to posts_url, notice: "Post was successfully deleted."
+    if @post.destroy
+      redirect_to posts_url, notice: "Post was successfully deleted."
+    else
+      redirect_to posts_url, alert: "Something went wrong"
+    end
+  end
+
+  def user_library
+    @user_posts = current_user.posts
   end
 
   private

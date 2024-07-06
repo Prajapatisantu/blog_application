@@ -39,6 +39,11 @@
       </div>
     </nav>
 
+    <% if notice || alert %>
+      <div class="mt-2 alert alert-<%= notice && "success" || alert && "danger" %>" role="alert" id="notice">
+        <%= notice %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
