@@ -5,10 +5,11 @@ application up and running.
 
 1. git clone https://github.com/Prajapatisantu/blog_application.git
 2. cd blog_application
-3. bundle install
-4. rails db:create
-5. rails db:migrate
-6. rails s
+3. Update the postgres username and password in database.yml file.
+4. bundle install
+5. rails db:create
+6. rails db:migrate
+7. rails s
 
 ![step7](https://github.com/Prajapatisantu/blog_application/assets/65483616/d231234d-2063-4308-bc64-9f99b2b293c2)
 ![step6](https://github.com/Prajapatisantu/blog_application/assets/65483616/35c0ef51-082a-41a8-b450-a247b1dd0cd9)
